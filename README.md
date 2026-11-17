@@ -22,10 +22,11 @@ market shows: the close falls, then bounces.
 One asset (CBBTC, USDC), long only, no leverage, at most one position, at most one order per reply.
 
 - **Entry** (fills at the next bar's open): the close is at least 80 bps under the mean of the last
-  60 closes, and a full 60 bars of history exist. Spend 99% of the cash.
-- **Exit**, the whole position, on either:
-  - the close is 100 bps above the fill price (the bounce), or
-  - the close is 400 bps under it (the dip kept going), which keeps a bad bar from becoming a bad day.
+  90 closes, and a full 90 bars of history exist. Spend 99% of the cash.
+- **First exit**: once the close is 170 bps above the fill, sell 60% of the position.
+- **Second exit**, the remainder: once it has been 200 bps above the fill, sell on a close 70 bps
+  under the highest close since entry; or sell everything at once if the close is 500 bps under the
+  fill.
 - **Slippage** is capped at 200 bps per order, so a liquidity gap refuses the fill instead of taking
   it at any price; a refused order is simply decided again on the next bar.
 - No wall clock, no randomness, no environment: two runs on the same bars make the same orders.
